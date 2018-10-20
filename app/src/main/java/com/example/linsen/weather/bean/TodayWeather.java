@@ -5,18 +5,18 @@ package com.example.linsen.weather.bean;
  */
 
 public final class TodayWeather {
-    private String city;
-    private String updatetime;
-    private String temp;
-    private String humid;
-    private String pm25;
-    private String quality;
-    private String winderection;
-    private String windpow;
-    private String date;
-    private String high;
-    private String low;
-    private String type;
+    private String city=null;
+    private String updatetime=null;
+    private String temp=null;
+    private String humid=null;
+    private String pm25=null;
+    private String quality=null;
+    private String winderection=null;
+    private String windpow=null;
+    private String date=null;
+    private String high=null;
+    private String low=null;
+    private String type=null;
 
     public String getUpdatetime() {
         return updatetime;

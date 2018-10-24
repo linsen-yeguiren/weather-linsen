@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by linsen on 2018/10/20.
  */
-
+// Context是个抽象类,通过类的结构可以看到:Activity、Service、Application都是Context的子类
 public class MyApplication extends Application {
     private static final String TAG="MyAPP";
     private static MyApplication myApplication;

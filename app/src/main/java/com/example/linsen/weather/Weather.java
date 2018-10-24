@@ -32,7 +32,7 @@ import java.lang.String;
 /**
  * Created by linsen on 2018/9/26.
  */
-
+// Context是个抽象类,通过类的结构可以看到:Activity、Service、Application都是Context的子类
 public class Weather extends Activity implements View.OnClickListener {
 
     private static final int UPDATE_TODAY_WEATHER = 1;
@@ -82,9 +82,10 @@ public class Weather extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.title_update_btn) {
-            SharedPreferences sharedPreferences = getSharedPreferences("config", MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getSharedPreferences("config", MODE_NO_LOCALIZED_COLLATORS);
             String cityCode = sharedPreferences.getString("main_city_code", "101010100");
             Log.d("weather", cityCode);
+            Log.d("xxxxxxx", cityCode);
             if (NetUtil.getNetworkState(this) != NetUtil.NETWORN_NONE) {
                 Log.d("weather", "网络连通");
                 Toast.makeText(Weather.this, "网络接通", Toast.LENGTH_LONG).show();
@@ -105,11 +106,15 @@ public class Weather extends Activity implements View.OnClickListener {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             String newCityCode = data.getStringExtra("cityCode");
+            SharedPreferences settings = getSharedPreferences("config", MODE_NO_LOCALIZED_COLLATORS);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString("main_city_code", newCityCode);
+            editor.commit();
             Log.d("myWeather", "选择的城市代码为" + newCityCode);
-            if (NetUtil.getNetworkState(this) != NetUtil.NETWORN_NONE){
+            if (NetUtil.getNetworkState(this) != NetUtil.NETWORN_NONE) {
                 Log.d("myWeather", "网络OK");
                 queryWeatherCode(newCityCode);
-            }else{
+            } else {
                 Log.d("myWeather", "网络挂了");
                 Toast.makeText(Weather.this, "网络挂了！", Toast.LENGTH_LONG).show();
             }
@@ -119,7 +124,7 @@ public class Weather extends Activity implements View.OnClickListener {
     private void queryWeatherCode(String cityCode) {
         final String address = "http://wthrcdn.etouch.cn/WeatherApi?citykey=" + cityCode;
         Log.d("weather", address);
-
+        Log.d("xxxx", address);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -299,7 +304,12 @@ public class Weather extends Activity implements View.OnClickListener {
 //            pmQualityTv.setText("严重污染");
 //        }
         pmQualityTv.setText(todayWeather.getQuality());
-        temperatureTv.setText(todayWeather.getLow().substring(3, todayWeather.getLow().length()) + "～" + todayWeather.getHigh().substring(3, todayWeather.getLow().length()));
+        if (todayWeather.getLow() != null) {
+            Log.d("cccccc",todayWeather.getLow()+todayWeather.getHigh());
+            temperatureTv.setText(todayWeather.getLow().substring(3, todayWeather.getLow().length()) + "～" + todayWeather.getHigh().substring(3, todayWeather.getHigh().length()));
+        }else{
+            temperatureTv.setText(null);
+        }
         Log.d("weather", temperatureTv.getText().toString());
         tempTv.setText("温度:" + todayWeather.getTemp() + "℃");
         weekTv.setText(todayWeather.getDate());

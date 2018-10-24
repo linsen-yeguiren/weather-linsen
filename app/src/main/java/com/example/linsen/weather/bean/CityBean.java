@@ -12,7 +12,7 @@ public class CityBean {
     private String allPY;
     private String allFristPY;
 
-    public CityBean(String allFristPY, String allPY, String city, String firstPY, String number, String province) {
+    public CityBean(String province,String city,String number,String firstPY,String allPY,String allFristPY) {
         this.allFristPY = allFristPY;
         this.allPY = allPY;
         this.city = city;

@@ -34,20 +34,31 @@
             android:text="北京天气"
             android:textColor="#ffffffff"
             android:textSize="22.0sp" />
-
-        <ImageView
-            android:id="@+id/title_update_btn"
-            android:layout_width="45.0dp"
-            android:layout_height="45.0dp"
+        <FrameLayout
+            android:id="@+id/updateFrame"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_alignParentRight="true"
-            android:layout_gravity="center"
+            android:layout_gravity="center">
+            <ImageView
+            android:id="@+id/title_update_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:src="@drawable/title_update" />
+            <ProgressBar
+                android:layout_width="fill_parent"
+                android:id="@+id/updateProgress"
+                android:layout_height="fill_parent"
+                android:visibility="invisible"
+                android:indeterminateBehavior="repeat"
+                android:indeterminateDrawable="@drawable/animator"/>
+        </FrameLayout>
 
         <ImageView
             android:id="@+id/title_share"
             android:layout_width="45.0dip"
             android:layout_height="45.0dip"
-            android:layout_toLeftOf="@id/title_update_btn"
+            android:layout_toLeftOf="@id/updateFrame"
             android:src="@drawable/title_share" />
 
         <ImageView
@@ -233,5 +244,39 @@
                     android:textSize="20.0sp" />
             </RelativeLayout>
         </RelativeLayout><!-- 六日天气信息 --><!-- 广告等信息 -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal"
+            android:background="#ff000000">
+            <ImageView
+            android:id="@+id/lv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="1dip"
+            android:src="@drawable/page_indicator_focused"/>
+            <ImageView
+                android:id="@+id/lv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="1dip"
+                android:src="@drawable/page_indicator_unfocused"/>
+            <ImageView
+                android:id="@+id/lv3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="1dip"
+                android:src="@drawable/page_indicator_unfocused"/>
+        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>
